@@ -193,6 +193,8 @@ Morphs.build = function () {
 	return ms;
 };
 
+//todo: credit http://www.panix.com/~eli/unicode/convert.cgi
+
 var Alphabets = {
 	simple: [
 		{
