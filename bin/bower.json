@@ -1,0 +1,22 @@
+{
+  "name": "ffalt.github.io",
+  "version": "0.0.1",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "html5-boilerplate": "~4.3.0",
+    "bootstrap": "~3.2.0",
+    "angular": "~1.3.0",
+    "jquery": "~2.1.1",
+    "html5shiv": "~3.7.2",
+    "respond": "~1.4.2",
+    "zeroclipboard": "~2.1.6",
+    "ng-clip": "~0.2.4"
+  }
+}

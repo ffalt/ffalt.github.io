@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="Morph" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="Morph" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="Morph" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="Morph" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Morph</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="../assets/img/favicon.ico">
+	<link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/app.css">
+	<script src="../assets/js/jquery.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/angular.min.js"></script>
+	<script src="../assets/js/ZeroClipboard.min.js"></script>
+	<script src="../assets/js/ng-clip.min.js"></script>
+	<script src="assets/js/data.js"></script>
+	<script src="assets/js/app.js"></script>
+	<!--[if lt IE 9]>
+	<script src="../assets/js/html5shiv.min.js"></script>
+	<script src="../assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+<div class="masthead">
+	<h3 class="masthead-brand"><a href="../index.html">ʇlɐɟɟ गरम मसाला</a> - Morph</h3>
+</div>
+
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<noscript>
+	<div class="front" ng-if="!loaded"><span>Ya sorry, traveller. This thing needs javascript!</span></div>
+</noscript>
+<div class="site-wrapper" ng-controller="MorphCtrl">
+
+	<div class="site-wrapper-inner">
+
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="nav masthead-nav">
+							<li ng-repeat="m in morphs" ng-class="{active:morpher.name==m.name}"><a href ng-click="selectMorph(m)">{{m.name}}</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="row inputs">
+					<div class="col-md-6">
+						<label for="input"><small>Input</small></label>
+						<textarea id="input" class="form-control" rows="10" ng-model="input" ng-change="inputChange()"></textarea>
+						<small>Length: {{input.length}}</small>
+						<a href="" title="Clear" class="pull-right" ng-click="clear()"><i class="glyphicon glyphicon-trash"></i></a>
+					</div>
+					<div class="col-md-6">
+						<label for="output"><small>Output</small></label>
+						<textarea id="output" class="form-control" rows="10" ng-model="output"></textarea>
+						<small>Length: {{output.length}}</small>
+						<a href="" title="Copy to clipboard" class="pull-right" clip-click-fallback="fallback(copy)" clip-copy="output" clip-click="copyClick()"><i class="glyphicon glyphicon-book"></i></a>
+					</div>
+				</div>
+				<div class="options-wrapper">
+					<div class="row options border" ng-if="morpher.options.hasVariations">
+						<div class="col-md-12">
+							<div class="options-label">Font</div>
+							<label ng-if="morpher.options.hasBold">
+								<input id="font_opt_bold" type="checkbox" ng-model="morpher.options.bold" ng-click="inputChange()"> Bold
+							</label>
+							<br ng-if="morpher.options.hasItalic&&morpher.options.hasBold"/>
+							<label ng-if="morpher.options.hasItalic">
+								<input id="font_opt_italic" type="checkbox" ng-model="morpher.options.italic" ng-click="inputChange()"> Italic
+							</label>
+						</div>
+					</div>
+					<div class="row options border" ng-if="morpher.name=='Zalgo'">
+						<div class="col-md-3">
+							<div class="options-label">Zalgo</div>
+							<label>
+								<input id="zalgo_opt_up" type="checkbox" ng-model="morpher.options.up" ng-click="inputChange()"> fuck up going up
+							</label><br/>
+							<label>
+								<input id="zalgo_opt_mid" type="checkbox" ng-model="morpher.options.mid" ng-click="inputChange()"> fuck up the middle
+							</label><br/>
+							<label>
+								<input id="zalgo_opt_down" type="checkbox" ng-model="morpher.options.down" ng-click="inputChange()"> fuck up going down
+							</label>
+						</div>
+						<div class="col-md-3">
+							<label>
+								<input id="zalgo_opt_mini" type="radio" value="mini" name="mode" ng-model="morpher.options.mode" ng-change="inputChange()"> mini fuck up
+							</label><br/>
+							<label>
+								<input id="zalgo_opt_normal" type="radio" value="normal" name="mode" ng-model="morpher.options.mode" ng-change="inputChange()"> normal fuck up
+							</label><br/>
+							<label>
+								<input id="zalgo_opt_maxi" type="radio" value="maxi" name="mode" ng-model="morpher.options.mode" ng-change="inputChange()"> maxi fuck up
+							</label>
+						</div>
+					</div>
+					<div class="row links">
+						<div class="col-md-3">
+							<small ng-if="morpher.info">
+								Info: <a target="_blank" ng-href="{{morpher.info.link}}">{{morpher.info.name}}</a>
+							</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="toast alert alert-success alert-dismissable" ng-click="hideToast()">
+		<button class="close" type="button">×</button>
+		<span>{{toast}}</span>
+	</div>
+</div>
+</body>
+</html>
