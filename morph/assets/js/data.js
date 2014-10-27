@@ -32,6 +32,7 @@ Morphs.BaseMorph = function (m, morph) {
 	var me = this;
 	me.name = m.name;
 	me.info = m.info;
+	me.input = m.input || "any string";
 	me.morph = morph;
 	me.getId = function () {
 		return me.name.toLowerCase().replace(/ /g, '_');
@@ -132,7 +133,7 @@ Morphs.OffsetMorph = function (om) {
 		}
 	});
 
-	me.info = {
+	me.info = om.info || {
 		name: "twitalics",
 		link: "https://mothereff.in/twitalics"
 	};
@@ -189,6 +190,9 @@ Morphs.build = function () {
 	});
 	Alphabets.maps.forEach(function (a) {
 		ms.push(new Morphs.MapAlphabetMorph(a));
+	});
+	Alphabets.nrcallbacks.forEach(function (a) {
+		ms.push(new Morphs.TextCallbackMorph(a));
 	});
 	return ms;
 };
@@ -5467,6 +5471,44 @@ var Alphabets = {
 			}
 		}
 	],
+	nrcallbacks:[
+		{
+			"name": "Bars",
+			"input": "comma-separated numbers e.g. -5, 3.3, 5, 30",
+			"callback": function (txt, options) {
+				var blocks = [
+					{c: "▁", u: "\u2581", name: "LOWER ONE EIGHTH BLOCK"}, //0-12,5
+					{c: "▂", u: "\u2582", name: "LOWER ONE QUARTER BLOCK"}, //12,5 -25
+					{c: "▃", u: "\u2583", name: "LOWER THREE EIGHTHS BLOCK"}, //25-37,5
+					{c: "▄", u: "\u2584", name: "LOWER HALF BLOCK"}, //37,5-50
+					{c: "▅", u: "\u2585", name: "LOWER FIVE EIGHTHS BLOCK"}, // 50-62,5
+					{c: "▆", u: "\u2586", name: "LOWER THREE QUARTERS BLOCK"}, //62,35-75
+					{c: "▇", u: "\u2587", name: "LOWER SEVEN EIGHTHS BLOCK"}, //75-87,5
+					{c: "▇", u: "\u2588", name: "FULL BLOCK"} //87,5-100
+				];
+				var items = (txt || '').split(',');
+				var min = 0, max = null;
+				items = items.map(function (s) {
+					s = parseInt(s, 10);
+					if (!isNaN(s)) {
+						min = Math.min(min, s);
+						if (max == null) max = s;
+						else max = Math.max(max, s);
+					}
+					return s;
+				}).filter(function (s) {
+					return !isNaN(s);
+				});
+				var range = max - min;
+				items = items.map(function (s) {
+					var percent = ((s - min) / (range / 100));
+					var index = Math.min(7, Math.max(0, Math.floor(percent / 12.5)));
+					return blocks[index].u;
+				});
+				return items.join(' ');
+			}
+		}
+	],
 	maps: [
 		{
 			"name": "Motlify",
@@ -6470,7 +6512,7 @@ var Alphabets = {
 	offsets: [
 		{"name": "Fullwide", "offset": 65248},
 		{"name": "Monospace", "offset": 120367},
-		{"name": "Double Struck", "offset": 120055},
+		{"name": "Double Struck", "offset": 120055, "info": {"name": "Wikipedia", "link": "http://en.wikipedia.org/wiki/Blackboard_bold"}},
 		{"name": "Courier", "offset": 120367}
 	],
 	offsetsgroup: [

@@ -46,15 +46,33 @@ Morph.controller('MorphCtrl', function ($scope, $rootScope, $location) {
 		"He who Waits Behind The Wall.",
 		"ZALGO!"].join('\n');
 
-	//$rootScope.$on('$locationChangeSuccess', function (locationChangeObj, path) {
-	//	console.log(locationChangeObj, $location.hash());
-	//});
+	var splitHash = function () {
+		var hash = $location.hash().split('=');
+		var mo = $scope.morphs.filter(function (m) {
+			return m.getId() == hash[0];
+		})[0];
+		var text = null;
+		if (hash[1]) {
+			hash.shift();
+			text = hash.join('=');
+		}
+		return {mo: mo, text: text};
+	};
 
-	var mo = $scope.morphs.filter(function (m) {
-		return m.getId() == $location.hash();
-	})[0];
+	var param = splitHash();
+	if (param.text) $scope.input = param.text;
+	$scope.selectMorph(param.mo || $scope.morphs[0]);
 
-	$scope.selectMorph(mo || $scope.morphs[0]);
+	$rootScope.$on('$locationChangeSuccess', function (locationChangeObj, path) {
+		var param = splitHash();
+		if ((param.mo) && ($scope.morpher != param.mo)) {
+			if (param.text) $scope.input = param.text;
+			$scope.selectMorph(param.mo);
+		} else if (param.text) {
+			$scope.input = param.text;
+			$scope.inputChange();
+		}
+	});
 
 	$scope.loaded = true;
 });
