@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="col-md-offset-1 col-md-10">
+		<div class="row inputs">
+			<div class="col-md-12">
+				<div morphinput title="{{typeface.input}}" value="input" />
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row preview" ng-repeat="typeface in typefaces">
+	<div class="col-md-offset-1 col-md-10">{{typeface.name}}
+		<div class="pull-right">
+			<small>Length: {{typeface.preview.length}}</small>&nbsp;
+			<a href="" title="Copy to clipboard" class="pull-right" clip-click-fallback="fallback(copy)" clip-copy="typeface.preview" clip-click="copyClick()"><i class="glyphicon glyphicon-book"></i></a>
+		</div>
+		<br/>
+		<div class="preview-text" ng-bind-html="typeface.preview | linebreak"></div>
+		<div class="preview-options-wrapper" ng-include src="'assets/partials/typeface_options.html'"></div>
+	</div>
+</div>

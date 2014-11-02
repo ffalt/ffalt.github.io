@@ -1,0 +1,6 @@
+<label for="input">
+	<small>Input: {{title}}</small>
+</label>
+<textarea id="input" class="form-control" rows="10" ng-model="value" ng-change="inputChange()"></textarea>
+<small>Length: {{value.length}}</small>
+<a href="" title="Clear" class="pull-right" ng-click="clear()"><i class="glyphicon glyphicon-trash"></i></a>

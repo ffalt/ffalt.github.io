@@ -1,0 +1,9 @@
+<div ng-if="typeface.options.template" class="row options border" ng-include src="typeface.options.template">
+</div>
+<div ng-if="typeface.info" class="row links">
+	<div class="col-md-12">
+		<small>
+			Info: <a target="_blank" ng-href="{{typeface.info.link}}">{{typeface.info.name}}</a>
+		</small>
+	</div>
+</div>

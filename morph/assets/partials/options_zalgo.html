@@ -1,0 +1,22 @@
+<div class="col-md-3">
+	<!--<div class="options-label">Zalgo</div>-->
+	<label>
+		<input id="zalgo_opt_up" type="checkbox" ng-model="typeface.options.up" ng-click="inputChange()"> fuck up going up
+	</label>
+	<input id="zalgo_opt_up_slide" ng-model="typeface.options.num_up" type="text" slider options="{from:0,to:20,step:1,smooth:false}" ng-change="inputChange()"/>
+</div>
+<div class="col-md-3">
+	<label>
+		<input id="zalgo_opt_mid" type="checkbox" ng-model="typeface.options.mid" ng-click="inputChange()"> fuck up the middle
+	</label>
+	<input id="zalgo_opt_mid_slide" ng-model="typeface.options.num_mid" type="text" slider options="{from:0,to:20,step:1,smooth:false}" ng-change="inputChange()"/>
+</div>
+<div class="col-md-3">
+	<label>
+		<input id="zalgo_opt_down" type="checkbox" ng-model="typeface.options.down" ng-click="inputChange()"> fuck up going down
+	</label>
+	<input id="zalgo_opt_down_slide" ng-model="typeface.options.num_down" type="text" slider options="{from:0,to:20,step:1,smooth:false}" ng-change="inputChange()"/>
+</div>
+<div class="col-md-3">
+	<div ng-repeat="mode in typeface.options.modes"><a href ng-click="typeface.options.zalgo_random(mode,typeface.options);inputChange()">{{mode}} fuck up</a></div>
+</div>

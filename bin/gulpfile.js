@@ -6,6 +6,12 @@ gulp.task('default', function() {
 		.pipe(gulp.dest('../assets/js'));
 	gulp.src('./bower_components/angular/angular.min.js')
 		.pipe(gulp.dest('../assets/js'));
+	gulp.src('./bower_components/ng-slider/dist/ng-slider.min.js')
+		.pipe(gulp.dest('../assets/js'));
+	gulp.src('./bower_components/angular-sanitize/angular-sanitize.min.js')
+		.pipe(gulp.dest('../assets/js'));
+	gulp.src('./bower_components/ui-router/release/angular-ui-router.min.js')
+		.pipe(gulp.dest('../assets/js'));
 	gulp.src('./bower_components/html5shiv/dist/html5shiv.min.js')
 		.pipe(gulp.dest('../assets/js'));
 	gulp.src('./bower_components/respond/dest/respond.min.js')
@@ -24,5 +30,8 @@ gulp.task('default', function() {
 
 	gulp.src('./bower_components/bootstrap/dist/fonts/*')
 		.pipe(gulp.dest('../assets/fonts'));
+
+	gulp.src('./bower_components/ng-slider/dist/img/jslider.round.plastic.png')
+		.pipe(gulp.dest('../assets/img'));
 
 });

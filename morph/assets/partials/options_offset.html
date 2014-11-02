@@ -1,0 +1,10 @@
+<div class="col-md-12">
+	<div class="options-label">Font</div>
+	<label ng-if="typeface.options.hasBold">
+		<input id="font_opt_bold" type="checkbox" ng-model="typeface.options.bold" ng-click="inputChange()"> Bold
+	</label>
+	<br ng-if="typeface.options.hasItalic && typeface.options.hasBold"/>
+	<label ng-if="typeface.options.hasItalic">
+		<input id="font_opt_italic" type="checkbox" ng-model="typeface.options.italic" ng-click="inputChange()"> Italic
+	</label>
+</div>
