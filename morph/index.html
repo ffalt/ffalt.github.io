@@ -75,5 +75,144 @@
 		<span>{{toast}}</span>
 	</div>
 </div>
+
+<script type="text/ng-template" id="assets/partials/input.html">
+	<label for="input">
+		<small>Input: {{title}}</small>
+	</label>
+	<textarea id="input" class="form-control" rows="10" ng-model="value" ng-change="inputChange()"></textarea>
+	<small>Length: {{value.length}}</small>
+	<a href="" title="Clear" class="pull-right" ng-click="clear()"><i class="glyphicon glyphicon-trash"></i></a>
+</script>
+
+<script type="text/ng-template" id="assets/partials/options_offset.html">
+	<div class="col-md-12">
+		<div class="options-label">Font</div>
+		<label ng-if="typeface.options.hasBold">
+			<input id="font_opt_bold" type="checkbox" ng-model="typeface.options.bold" ng-click="inputChange()"> Bold
+		</label>
+		<br ng-if="typeface.options.hasItalic && typeface.options.hasBold"/>
+		<label ng-if="typeface.options.hasItalic">
+			<input id="font_opt_italic" type="checkbox" ng-model="typeface.options.italic" ng-click="inputChange()"> Italic
+		</label>
+	</div>
+</script>
+
+<script type="text/ng-template" id="assets/partials/options_zalgo.html">
+	<div class="col-md-3">
+		<!--<div class="options-label">Zalgo</div>-->
+		<label>
+			<input id="zalgo_opt_up" type="checkbox" ng-model="typeface.options.up" ng-click="inputChange()"> fuck up going up
+		</label>
+		<input id="zalgo_opt_up_slide" ng-model="typeface.options.num_up" type="text" slider options="{from:0,to:20,step:1,smooth:false}" ng-change="inputChange()"/>
+	</div>
+	<div class="col-md-3">
+		<label>
+			<input id="zalgo_opt_mid" type="checkbox" ng-model="typeface.options.mid" ng-click="inputChange()"> fuck up the middle
+		</label>
+		<input id="zalgo_opt_mid_slide" ng-model="typeface.options.num_mid" type="text" slider options="{from:0,to:20,step:1,smooth:false}" ng-change="inputChange()"/>
+	</div>
+	<div class="col-md-3">
+		<label>
+			<input id="zalgo_opt_down" type="checkbox" ng-model="typeface.options.down" ng-click="inputChange()"> fuck up going down
+		</label>
+		<input id="zalgo_opt_down_slide" ng-model="typeface.options.num_down" type="text" slider options="{from:0,to:20,step:1,smooth:false}" ng-change="inputChange()"/>
+	</div>
+	<div class="col-md-3">
+		<div ng-repeat="mode in typeface.options.modes"><a href ng-click="typeface.options.zalgo_random(mode,typeface.options);inputChange()">{{mode}} fuck up</a></div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="assets/partials/tools.html">
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav masthead-nav">
+						<li ng-repeat="m in tools" ng-class="{active:tool.name==m.name}"><a href ng-click="selectTool(m)">{{m.name}}</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row inputs">
+				<div class="col-md-6">
+					<div morphinput title="{{tool.input}}" value="input"/>
+				</div>
+				<div class="col-md-6">
+					<label for="output">
+						<small>Output</small>
+					</label>
+					<textarea id="output" class="form-control" rows="10" ng-model="output"></textarea>
+					<small>Length: {{output.length}}</small>
+					<a href="" title="Copy to clipboard" class="pull-right" clip-click-fallback="fallback(copy)" clip-copy="output" clip-click="copyClick()"><i class="glyphicon glyphicon-book"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="assets/partials/typeface.html">
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav masthead-nav">
+						<li ng-repeat="m in typefaces" ng-class="{active:typeface.name==m.name}"><a href ng-click="selectTypeface(m)">{{m.name}}</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="row inputs">
+				<div class="col-md-6">
+					<div morphinput title="{{typeface.input}}" value="input"/>
+				</div>
+				<div class="col-md-6">
+					<label for="output">
+						<small>Output</small>
+					</label>
+					<textarea id="output" class="form-control" rows="10" ng-model="output"></textarea>
+					<small>Length: {{output.length}}</small>
+					<a href="" title="Copy to clipboard" class="pull-right" clip-click-fallback="fallback(copy)" clip-copy="output" clip-click="copyClick()"><i class="glyphicon glyphicon-book"></i></a>
+				</div>
+			</div>
+			<div class="options-wrapper" ng-include src="'assets/partials/typeface_options.html'"></div>
+		</div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="assets/partials/typeface_options.html">
+	<div ng-if="typeface.options.template" class="row options border" ng-include src="typeface.options.template">
+	</div>
+	<div ng-if="typeface.info" class="row links">
+		<div class="col-md-12">
+			<small>
+				Info: <a target="_blank" ng-href="{{typeface.info.link}}">{{typeface.info.name}}</a>
+			</small>
+		</div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="assets/partials/typefaces.html">
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<div class="row inputs">
+				<div class="col-md-12">
+					<div morphinput title="{{typeface.input}}" value="input" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row preview" ng-repeat="typeface in typefaces">
+		<div class="col-md-offset-1 col-md-10">{{typeface.name}}
+			<div class="pull-right">
+				<small>Length: {{typeface.preview.length}}</small>&nbsp;
+				<a href="" title="Copy to clipboard" class="pull-right" clip-click-fallback="fallback(copy)" clip-copy="typeface.preview" clip-click="copyClick()"><i class="glyphicon glyphicon-book"></i></a>
+			</div>
+			<br/>
+			<div class="preview-text" ng-bind-html="typeface.preview | linebreak"></div>
+			<div class="preview-options-wrapper" ng-include src="'assets/partials/typeface_options.html'"></div>
+		</div>
+	</div>
+</script>
+
 </body>
 </html>
