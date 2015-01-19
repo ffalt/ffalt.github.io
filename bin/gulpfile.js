@@ -24,6 +24,10 @@ gulp.task('default', function() {
 		.pipe(gulp.dest('../assets/js'));
 	gulp.src('./bower_components/ng-clip/dest/ng-clip.min.js')
 		.pipe(gulp.dest('../assets/js'));
+	gulp.src('./bower_components/moment/min/moment.min.js')
+		.pipe(gulp.dest('../assets/js'));
+	gulp.src('./bower_components/angular-moment/angular-moment.min.js')
+		.pipe(gulp.dest('../assets/js'));
 
 	gulp.src('./bower_components/bootstrap/dist/css/bootstrap.min.css')
 		.pipe(gulp.dest('../assets/css'));

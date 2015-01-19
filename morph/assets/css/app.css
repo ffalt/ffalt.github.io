@@ -395,6 +395,11 @@ textarea {
 	padding-top: 4px;
 }
 
+.navbar {
+	background-color: transparent;
+	border-bottom: none;
+}
+
 #navbar {
 	margin-right: 40px;
 }
