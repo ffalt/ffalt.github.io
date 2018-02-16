@@ -68,10 +68,10 @@ body {
 }
 
 .masthead-nav > li {
-	display: inline-block;
+	display: block;
 }
-.masthead-nav > li + li {
-	margin-left: 20px;
+.masthead-nav > li:first-of-type > a {
+	border-top: 1px solid rgba(255,255,255,.25);
 }
 .masthead-nav > li > a {
 	transition: all 0.2s linear;
@@ -81,12 +81,14 @@ body {
 	font-weight: bold;
 	color: #fff; /* IE8 proofing */
 	color: rgba(255,255,255,.75);
-	border-bottom: 2px solid transparent;
+	border-bottom: 1px solid rgba(255,255,255,.25);
+	/*border-bottom: 2px solid transparent;*/
 }
 .masthead-nav > li > a:hover,
 .masthead-nav > li > a:focus {
 	background-color: transparent;
 	transform: scale(1.1);
+	color: #fff;
 	border-bottom-color: #a9a9a9;
 	border-bottom-color: rgba(255,255,255,.25);
 }
